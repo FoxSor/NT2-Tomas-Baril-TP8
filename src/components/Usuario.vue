@@ -93,14 +93,12 @@ export default {
   props: [],
   data () {
     return {
-      url: 'https://60afffb81f26610017ffdae0.mockapi.io/Users',
       formData : this.getInicialData(),
       formState : {},
       nombreLengthMin : 3,
       nombreLengthMax : 15,
       edadMin : 18,
-      edadMax : 120,
-      usuariosIngresados: []
+      edadMax : 120
     }
   },
   computed: {
@@ -120,7 +118,7 @@ export default {
 
     async enviar() {
       const usuario = { "nombre": this.formData.nombre, "mail": this.formData.email, "edad": this.formData.edad }
-      await this.axios.post(this.url, usuario)
+      this.$store.dispatch('enviarUsuarios', usuario)
       this.formData = this.getInicialData()
       this.formState._reset()
     }

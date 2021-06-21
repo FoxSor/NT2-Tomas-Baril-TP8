@@ -5,19 +5,19 @@
       <h2>Componente Http</h2>
       <hr>
 
-      <button class="btn btn-success my-3 mr-3" @click="getPostsAxiosThen()">Pedir AXIOS then catch</button>  
-      <button class="btn btn-success my-3 mr-3" @click="getPostsAxiosAsync()">Pedir AXIOS async await</button>   
+      <button class="btn btn-success my-3 mr-3" @click="getUsuariosAxiosThen()">Pedir AXIOS then catch</button>  
+      <button class="btn btn-success my-3 mr-3" @click="getUsuariosAxiosAsync()">Pedir AXIOS async await</button>   
 
-      <div v-if="posts.length" class="table-responsive">
+      <div v-if="$store.state.usuarios.length" class="table-responsive">
         <table class="table table-dark">
           <tr>
             <th v-for="(col,index) in getCols" :key="index">{{col}}</th>
           </tr>
-          <tr v-for="(post,index) in posts" :key="index">
-            <td v-for="(col,index) in getCols" :key="index">{{post[col]}}</td>
+          <tr v-for="(usuario,index) in $store.state.usuarios" :key="index">
+            <td v-for="(col,index) in getCols" :key="index">{{usuario[col]}}</td>
           </tr>
         </table>
-        <h4 class="alert alert-primary">Se encontraron {{posts.length}} datos</h4>
+        <h4 class="alert alert-primary">Se encontraron {{$store.state.usuarios.length}} datos</h4>
       </div>
       <h4 v-else class="alert alert-danger">No se encontraron datos</h4>
     </div>
@@ -31,31 +31,22 @@
     name: 'Teoria',
     props: [],
     mounted () {
-
     },
     data () {
       return {
-        url: 'https://60afffb81f26610017ffdae0.mockapi.io/Users',
-        posts : []
       }
     },
     methods: {
-      getPostsAxiosThen() {
-          this.axios(this.url)
-          .then( respuesta => {
-            console.log('AXIOS', respuesta.data)
-            this.posts = respuesta.data
-          })
-          .catch(error => console.error(error))
+      getUsuariosAxiosThen() {
+          this.$store.dispatch('getUsuariosAxiosThen')
       },
-      async getPostsAxiosAsync() {
-        let response = await this.axios.get(this.url)
-        this.posts = response.data
+      async getUsuariosAxiosAsync() {
+         this.$store.dispatch('getUsuariosAxiosAsync')
       }
     },
     computed: {
       getCols() {
-        return Object.keys(this.posts[0])
+        return Object.keys(this.$store.state.usuarios[0])
       }
     }
 }

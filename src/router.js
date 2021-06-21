@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Cliente from './components/Cliente.vue'
+import Usuario from './components/Usuario.vue'
 import ConseguirMockapi from './components/ConseguirMockapi.vue'
 
 Vue.use(VueRouter)
@@ -8,8 +8,8 @@ Vue.use(VueRouter)
 export const router = new VueRouter({
     mode: 'history',
     routes : [
-        { path: '/', redirect:'/Cliente' },
-        { path: '/Cliente', component: Cliente },
+        { path: '/', redirect:'/Usuario' },
+        { path: '/Usuario', component: Usuario },
         { path: '/ConseguirMockapi', component: ConseguirMockapi },
     ]
 })
